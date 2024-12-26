@@ -15,6 +15,40 @@ app.get('/inquirys', async (c) => {
   })
 })
 
+app.post('/inquirys', async (c) => {
+  try {
+    const {
+      email,
+      name,
+      content
+    } = await c.req.json()
+  
+    if (!email || !name || !content) {
+      return c.json({
+        message: 'error',
+        error: "入力値が空です",
+      })
+    }
+
+    await db.inquiry.create({
+      data: {
+        name,
+        email,
+        content
+      }
+    })
+  
+    return c.json({
+      message: 'success',
+    })
+  } catch (error) {
+    return c.json({
+      message: 'error',
+      error,
+    })
+  }
+})
+
 app.get('/hello', (c) => {
   return c.json({
     message: 'Hello from Hono!'
@@ -35,3 +69,4 @@ app.get('/hoge', (c) => {
 })
 
 export const GET = handle(app)
+export const POST = handle(app)
