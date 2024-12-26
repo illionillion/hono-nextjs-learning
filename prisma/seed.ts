@@ -18,7 +18,9 @@ async function main() {
   ];
 
   await db.$transaction(
-    inquirys.map((inquiry) => db.inquiry.create({ data: inquiry }))
+    () => db.inquiry.createMany({
+      data: inquirys
+    })
   );
 
   console.log("データ挿入完了");
