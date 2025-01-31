@@ -2,8 +2,6 @@ import { db } from '@/utils/prisma'
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
-// export const runtime = 'edge'
-
 const app = new Hono().basePath('/api')
 
 app.get('/inquirys', async (c) => {
